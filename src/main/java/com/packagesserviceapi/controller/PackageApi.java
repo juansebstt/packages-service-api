@@ -2,6 +2,7 @@ package com.packagesserviceapi.controller;
 
 import com.packagesserviceapi.commons.constants.ApiPathConstants;
 import com.packagesserviceapi.commons.dtos.CreatePackageRequest;
+import com.packagesserviceapi.commons.dtos.CreatePackageResponse;
 import com.packagesserviceapi.commons.dtos.PackageContentResponse;
 import com.packagesserviceapi.commons.dtos.UpdatePackageRequest;
 import jakarta.validation.Valid;
@@ -12,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public interface PackageApi {
 
     @PostMapping(value = "/create")
-    ResponseEntity<CreatePackageRequest> createPackage(
+    ResponseEntity<CreatePackageResponse> createPackage(
             @RequestBody @Valid CreatePackageRequest createPackageRequest,
             @RequestAttribute(name = "X-User-Id") Long userId
     );
 
     @PutMapping(value = "/update_package/{trackingNumber}")
-    ResponseEntity<UpdatePackageRequest> updatePackage(
+    ResponseEntity<Void> updatePackage(
             @RequestBody @Valid UpdatePackageRequest updatePackageRequest,
             @PathVariable Long trackingNumber
     );
