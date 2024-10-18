@@ -1,6 +1,7 @@
 package com.packagesserviceapi.commons.dtos;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,9 @@ public class CreatePackageRequest {
     @NotNull
     private String recipientName;
 
-    @NotNull
-    @NotBlank
-    @Email
+    @NotNull(message = "Recipient email is required")
+    @NotBlank(message = "Recipient email cannot be blank")
+    @Email(message = "Recipient email should be valid")
     private String receiverEmail;
 
     @NotNull
@@ -33,6 +34,7 @@ public class CreatePackageRequest {
 
     @NotNull
     @NotBlank
+    @Min(15)
     private Integer weight;
 
 }
