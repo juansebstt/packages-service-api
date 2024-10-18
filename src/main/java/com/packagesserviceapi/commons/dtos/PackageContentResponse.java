@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PackageContentResponse {
 
     private String recipientAddress;
-    private String packageContent;
-    private String packageWeight;
+    private String content;
+    private Float weight;
 
 }
