@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PackageContentResponse {
 
+    private String recipientName;
     private String recipientAddress;
+    private String recipientEmail;
     private String content;
     private Float weight;
 
