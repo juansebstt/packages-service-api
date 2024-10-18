@@ -19,11 +19,12 @@ public class PackageModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long trackingNumber;
 
-    // Package dimensions
+    // Sender information
     @NotNull(message = "Sender name is required")
     @NotBlank(message = "Sender name cannot be blank")
     private String senderName;
 
+    @NotNull(message = "Sender email is required")
     @Email(message = "Sender email should be valid")
     private String senderEmail;
 

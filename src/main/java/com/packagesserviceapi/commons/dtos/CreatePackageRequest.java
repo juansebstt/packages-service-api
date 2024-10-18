@@ -1,13 +1,13 @@
 package com.packagesserviceapi.commons.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.PrePersist;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,26 +15,67 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreatePackageRequest {
 
-    @NotBlank
-    @NotNull
-    private String recipientName;
+    @NotBlank(message = "Sender name cannot be blank")
+    @NotNull(message = "Sender name is required")
+    private String senderNameDTO;
 
-    @NotNull(message = "Recipient email is required")
-    @NotBlank(message = "Recipient email cannot be blank")
+    @NotNull(message = "Sender email is required")
+    @Email(message = "Sender email should be valid")
+    private String senderEmailDTO;
+
+    @NotNull(message = "Sender address is required")
+    @NotBlank(message = "Sender address cannot be blank")
+    private String senderAddressDTO;
+
+    @NotNull(message = "Sender phone is required")
+    @NotBlank(message = "Sender phone cannot be blank")
+    @Pattern(regexp = "^[+]?[0-9]{1,15}$", message = "Invalid phone number format")
+    private String senderPhoneDTO;
+
+    // Recipient information
+    @NotNull(message = "Recipient name is required")
+    @NotBlank(message = "Recipient name cannot be blank")
+    private String recipientNameDTO;
+
+    @NotNull(message = "Recipient name is required")
     @Email(message = "Recipient email should be valid")
-    private String receiverEmail;
+    private String recipientEmailDTO;
 
-    @NotNull
-    @NotBlank
-    private String address;
+    @NotNull(message = "Recipient address is required")
+    @NotBlank(message = "Recipient address cannot be blank")
+    private String recipientAddressDTO;
 
-    @NotNull
-    @NotBlank
-    private String content;
+    @NotNull(message = "Recipient phone is required")
+    @NotBlank(message = "Recipient phone cannot be blank")
+    @Pattern(regexp = "^[+]?[0-9]{1,15}$", message = "Invalid phone number format")
+    private String recipientPhoneNumberDTO;
 
-    @NotNull
-    @NotBlank
-    @Min(15)
-    private Integer weight;
+    //Package Dimensions
+    @NotNull(message = "Package width is required")
+    @NotBlank(message = "Package width cannot be blank")
+    @Min(value = 15, message = "Width must be at least 15 cm")
+    private Float widthDTO;
+
+    @NotNull(message = "Package height is required")
+    @NotBlank(message = "Package height cannot be blank")
+    @Min(value = 15, message = "Height must be at least 15 cm")
+    private Float heightDTO;
+
+    @NotNull(message = "Package length is required")
+    @NotBlank(message = "Package length cannot be blank")
+    @Min(value = 15, message = "Length must be at least 15 cm")
+    private Float lengthDTO;
+
+    @NotNull(message = "Package weight is required")
+    @NotBlank(message = "Package weight cannot be blank")
+    @Min(value = 0, message = "Weight must be a positive value")
+    private Float weightDTO;
+
+    private LocalDateTime createdAtDTO;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAtDTO = LocalDateTime.now();
+    }
 
 }
