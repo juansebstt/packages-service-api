@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CreatePackageRequest {
 
+    //Sender information DTO
     @NotBlank(message = "Sender name cannot be blank")
     @NotNull(message = "Sender name is required")
     private String senderName;
@@ -32,7 +33,7 @@ public class CreatePackageRequest {
     @Pattern(regexp = "^[+]?[0-9]{1,15}$", message = "Invalid phone number format")
     private String senderPhone;
 
-    // Recipient information
+    // Recipient information DTO
     @NotNull(message = "Recipient name is required")
     @NotBlank(message = "Recipient name cannot be blank")
     private String recipientName;
@@ -50,7 +51,7 @@ public class CreatePackageRequest {
     @Pattern(regexp = "^[+]?[0-9]{1,15}$", message = "Invalid phone number format")
     private String recipientPhoneNumber;
 
-    //Package Dimensions
+    //Package Dimensions DTO
     @NotNull(message = "Package width is required")
     @NotBlank(message = "Package width cannot be blank")
     @Min(value = 15, message = "Width must be at least 15 cm")
@@ -71,6 +72,7 @@ public class CreatePackageRequest {
     @Min(value = 0, message = "Weight must be a positive value")
     private Float weight;
 
+    //Package created at x time DTO
     private LocalDateTime createdAt;
 
     @PrePersist
