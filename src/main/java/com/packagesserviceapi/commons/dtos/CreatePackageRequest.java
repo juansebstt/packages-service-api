@@ -20,5 +20,5 @@ public class CreatePackageRequest {
     private String address;
     private String content;
     private Integer weight;
-    
+
 }
