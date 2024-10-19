@@ -29,7 +29,8 @@ public class PackageController implements PackageApi {
 
     @Override
     public ResponseEntity<Void> deletePackage(Long trackingNumber) {
-        return null;
+        packageService.deletePackage(trackingNumber);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
