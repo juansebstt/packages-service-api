@@ -23,7 +23,8 @@ public class PackageController implements PackageApi {
 
     @Override
     public ResponseEntity<Void> updatePackage(UpdatePackageRequest updatePackageRequest, Long trackingNumber) {
-        return null;
+        packageService.updatePackage(updatePackageRequest, trackingNumber);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
