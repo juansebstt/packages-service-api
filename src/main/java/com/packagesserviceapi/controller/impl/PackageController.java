@@ -35,6 +35,7 @@ public class PackageController implements PackageApi {
 
     @Override
     public ResponseEntity<PackageContentResponse> packageInformation(Long trackingNumber) {
-        return null;
+        packageService.getPackageContent(trackingNumber);
+        return ResponseEntity.ok(packageService.getPackageContent(trackingNumber));
     }
 }
