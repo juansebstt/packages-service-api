@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PackageRepository extends JpaRepository<PackageModel, Long> {
 
-    Optional<PackageModel> findByTrackingNumber(Long packageName);
+    Optional<PackageModel> findByTrackingNumber(Long packageTrackingNumber);
 
 }
