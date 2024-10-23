@@ -14,9 +14,17 @@ public class PackageContentResponse {
 
     @Schema(description = "Receives the recipient name as a parameter")
     private String recipientName;
+
+    @Schema(description = "Receives the recipient address as a parameter")
     private String recipientAddress;
+
+    @Schema(description = "Receives the recipient email as a parameter")
     private String recipientEmail;
+
+    @Schema(description = "Receives the package content as a parameter")
     private String content;
+
+    @Schema(description = "Receives the package weight name as a parameter")
     private Float weight;
 
 }
