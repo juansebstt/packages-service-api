@@ -22,7 +22,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Autowired
     public PackageServiceImpl(PackageRepository packageRepository, StreamBridge streamBridge) {
-        
+
         this.packageRepository = packageRepository;
         this.streamBridge = streamBridge;
     }
@@ -95,6 +95,21 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public void updatePackage(UpdatePackageRequest updatePackageRequest, Long trackingNumber) {
 
+        Optional.of(trackingNumber)
+                .map(this::getPackageById)
+                .map(existingPackage -> updatePackageFields(existingPackage, updatePackageRequest))
+                .map(packageRepository::save)
+                .orElseThrow(() -> new RuntimeException("Error updating package"));
+    }
+
+    private PackageModel updatePackageFields(PackageModel existingPackage, UpdatePackageRequest updatePackageRequest) {
+
+        return PackageModel.builder()
+                .recipientName(updatePackageRequest.getRecipientName())
+                .recipientAddress(updatePackageRequest.getRecipientAddress())
+                .recipientEmail(updatePackageRequest.getRecipientEmail())
+                .recipientPhoneNumber(updatePackageRequest.getRecipientPhoneNumber())
+                .build();
     }
 
     @Override
