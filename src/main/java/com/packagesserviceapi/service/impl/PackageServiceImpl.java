@@ -26,7 +26,6 @@ public class PackageServiceImpl implements PackageService {
         this.streamBridge = streamBridge;
     }
 
-
     @Override
     public CreatePackageResponse createPackage(CreatePackageRequest createPackageRequest, Long userId) {
         return Optional.of(createPackageRequest)
@@ -64,7 +63,26 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public PackageContentResponse getPackageContent(Long trackingNumber) {
-        return null;
+        return Optional.of(trackingNumber)
+                .map(this::getPackageById)
+                .map(this::mapToPackageContent)
+                .orElseThrow();
+    }
+
+    private PackageContentResponse mapToPackageContent(PackageModel packageModel) {
+        return PackageContentResponse.builder()
+                .recipientName(packageModel.getRecipientName())
+                .recipientAddress(packageModel.getRecipientAddress())
+                .recipientEmail(packageModel.getRecipientEmail())
+                .packageContent(packageModel.getPackageContent())
+                .packageWeight(packageModel.getWeight())
+                .build();
+    }
+
+    private PackageModel getPackageById(Long trackingNumber ) {
+
+        return this.packageRepository.findByTrackingNumber(trackingNumber)
+                .orElseThrow(() -> new RuntimeException("Error getting package by trackingNumber"));
     }
 
     @Override

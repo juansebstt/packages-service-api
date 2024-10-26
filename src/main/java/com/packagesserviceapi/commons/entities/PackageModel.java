@@ -1,5 +1,6 @@
 package com.packagesserviceapi.commons.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -67,6 +68,12 @@ public class PackageModel {
     @Min(value = 0, message = "Weight must be a positive value")
     private Float weight;
 
+    @NotNull(message = "Package content is required")
+    @NotBlank(message = "Package content cannot be blank")
+    @Schema(description = "Receives the package content")
+    private String packageContent;
+
+    @Schema(description = "Creates the package at the local current time")
     private LocalDateTime createdAt;
 
     @PrePersist

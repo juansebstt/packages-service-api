@@ -22,9 +22,9 @@ public class PackageContentResponse {
     private String recipientEmail;
 
     @Schema(description = "Receives the package content as a parameter")
-    private String content;
+    private String packageContent;
 
     @Schema(description = "Receives the package weight name as a parameter")
-    private Float weight;
+    private Float packageWeight;
 
 }
