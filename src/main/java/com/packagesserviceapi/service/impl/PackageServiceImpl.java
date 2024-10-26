@@ -27,7 +27,11 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public CreatePackageResponse createPackage(CreatePackageRequest createPackageRequest, Long userId) {
         return Optional.of(createPackageRequest)
-                .map(this::mapToEntity);
+                .map(this::mapToEntity)
+                .map(packageRepository::save)
+                .map(savedPackage -> new CreatePackageResponse(savedPackage.getTrackingNumber()))
+                .map(this::savedPackageEvent)
+                .orElseThrow(() -> new RuntimeException("Error creating a package"));
     }
 
     private PackageModel mapToEntity(CreatePackageRequest createPackageRequest) {
