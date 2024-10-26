@@ -65,25 +65,25 @@ public class CreatePackageRequest {
     @NotBlank(message = "Package width cannot be blank")
     @Min(value = 15, message = "Width must be at least 15 cm")
     @Schema(description = "Receives the package width as a parameter")
-    private Float width;
+    private Float packageWidth;
 
     @NotNull(message = "Package height is required")
     @NotBlank(message = "Package height cannot be blank")
     @Min(value = 15, message = "Height must be at least 15 cm")
     @Schema(description = "Receives the package height as a parameter")
-    private Float height;
+    private Float packageHeight;
 
     @NotNull(message = "Package length is required")
     @NotBlank(message = "Package length cannot be blank")
     @Min(value = 15, message = "Length must be at least 15 cm")
     @Schema(description = "Receives the package length as a parameter")
-    private Float length;
+    private Float packageLength;
 
     @NotNull(message = "Package weight is required")
     @NotBlank(message = "Package weight cannot be blank")
     @Min(value = 0, message = "Weight must be a positive value")
     @Schema(description = "Receives the package weight as a parameter")
-    private Float weight;
+    private Float packageWeight;
 
     //Package created at x time DTO
     @Schema(description = "Creates the package at current time")
