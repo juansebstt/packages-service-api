@@ -114,7 +114,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public void deletePackage(Long trackingNumber) {
-        
+
         Optional.of(trackingNumber)
                 .map(this::getPackageById)
                 .ifPresent(packageRepository::delete);
