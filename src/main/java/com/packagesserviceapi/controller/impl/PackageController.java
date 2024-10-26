@@ -7,7 +7,9 @@ import com.packagesserviceapi.commons.dtos.UpdatePackageRequest;
 import com.packagesserviceapi.controller.PackageApi;
 import com.packagesserviceapi.service.PackageService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class PackageController implements PackageApi {
 
     private final PackageService packageService;
