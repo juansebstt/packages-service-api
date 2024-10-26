@@ -22,12 +22,14 @@ public class PackageServiceImpl implements PackageService {
 
     @Autowired
     public PackageServiceImpl(PackageRepository packageRepository, StreamBridge streamBridge) {
+        
         this.packageRepository = packageRepository;
         this.streamBridge = streamBridge;
     }
 
     @Override
     public CreatePackageResponse createPackage(CreatePackageRequest createPackageRequest, Long userId) {
+
         return Optional.of(createPackageRequest)
                 .map(this::mapToEntity)
                 .map(packageRepository::save)
@@ -37,6 +39,7 @@ public class PackageServiceImpl implements PackageService {
     }
 
     private CreatePackageResponse savedPackageEvent(CreatePackageResponse createPackageResponse) {
+
         Optional.of(createPackageResponse)
                 .map(givenPackage -> this.streamBridge.send(TopicConstants.PACKAGE_CREATED_TOPIC, createPackageResponse))
                 .map(bool -> createPackageResponse);
@@ -45,6 +48,7 @@ public class PackageServiceImpl implements PackageService {
     }
 
     private PackageModel mapToEntity(CreatePackageRequest createPackageRequest) {
+
         return PackageModel.builder()
                 .senderName(createPackageRequest.getSenderName())
                 .senderEmail(createPackageRequest.getSenderEmail())
@@ -63,6 +67,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public PackageContentResponse getPackageContent(Long trackingNumber) {
+
         return Optional.of(trackingNumber)
                 .map(this::getPackageById)
                 .map(this::mapToPackageContent)
@@ -70,6 +75,7 @@ public class PackageServiceImpl implements PackageService {
     }
 
     private PackageContentResponse mapToPackageContent(PackageModel packageModel) {
+
         return PackageContentResponse.builder()
                 .recipientName(packageModel.getRecipientName())
                 .recipientAddress(packageModel.getRecipientAddress())
@@ -83,6 +89,7 @@ public class PackageServiceImpl implements PackageService {
 
         return this.packageRepository.findByTrackingNumber(trackingNumber)
                 .orElseThrow(() -> new RuntimeException("Error getting package by trackingNumber"));
+
     }
 
     @Override
