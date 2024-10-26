@@ -1,5 +1,6 @@
 package com.packagesserviceapi.service.impl;
 
+import com.packagesserviceapi.commons.constants.TopicConstants;
 import com.packagesserviceapi.commons.dtos.CreatePackageRequest;
 import com.packagesserviceapi.commons.dtos.CreatePackageResponse;
 import com.packagesserviceapi.commons.dtos.PackageContentResponse;
@@ -32,6 +33,14 @@ public class PackageServiceImpl implements PackageService {
                 .map(savedPackage -> new CreatePackageResponse(savedPackage.getTrackingNumber()))
                 .map(this::savedPackageEvent)
                 .orElseThrow(() -> new RuntimeException("Error creating a package"));
+    }
+
+    private CreatePackageResponse savedPackageEvent(CreatePackageResponse createPackageResponse) {
+        Optional.of(createPackageResponse)
+                .map(givenPackage -> this.streamBridge.send(TopicConstants.PACKAGE_CREATED_TOPIC, createPackageResponse))
+                .map(bool -> createPackageResponse);
+
+        return createPackageResponse;
     }
 
     private PackageModel mapToEntity(CreatePackageRequest createPackageRequest) {
