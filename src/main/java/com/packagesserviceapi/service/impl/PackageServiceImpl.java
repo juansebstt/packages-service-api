@@ -106,14 +106,18 @@ public class PackageServiceImpl implements PackageService {
 
         return PackageModel.builder()
                 .recipientName(updatePackageRequest.getRecipientName())
-                .recipientAddress(updatePackageRequest.getRecipientAddress())
-                .recipientEmail(updatePackageRequest.getRecipientEmail())
-                .recipientPhoneNumber(updatePackageRequest.getRecipientPhoneNumber())
+                .recipientAddress(existingPackage.getRecipientAddress())
+                .recipientEmail(existingPackage.getRecipientEmail())
+                .recipientPhoneNumber(existingPackage.getRecipientPhoneNumber())
                 .build();
     }
 
     @Override
     public void deletePackage(Long trackingNumber) {
+        
+        Optional.of(trackingNumber)
+                .map(this::getPackageById)
+                .ifPresent(packageRepository::delete);
 
     }
 }
